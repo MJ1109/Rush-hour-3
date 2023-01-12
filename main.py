@@ -1,26 +1,20 @@
-class Stack(object):
-    """stack class. Waarin je items aan het einde van je stack kan zetten
-    verwijderen"""
-    def __init__(self):
-        """ maakt een lege stack"""
-        self.items = []
+from sys import argv
+from board import board
+import csv
 
-    def push(self, item):
-        """zet items aan het einde van de stack"""
-        return self.items.append(item)
+def create_output():
+    with open('output.csv','w',newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow("car","move")
+        
 
-    def pop(self):
-        """ verwijderd items aan het einde van de stack"""
-        return self.items.pop()
+if __name__ == "__main__":
+    if len(argv) not in [1,2]:
+        print("Usage: python main.py [name]")
+        exit(1)
 
-    def top(self):
-        """ geeft het element aan de top van de stack zonder het te
-        verwijderen"""
-        return self.items[-1]
+    if len(argv) == 2:
+        filename = argv[1]
+        Board = board(filename)
 
-    def size(self):
-        """ geeft het aantal elementen in de stack"""
-        return len(self.items)
-
-    def __repr__(self):
-        return str(self.items)
+    
