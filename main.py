@@ -6,6 +6,7 @@ def create_output():
     with open('output.csv','w',newline='') as file:
         writer = csv.writer(file)
         writer.writerow("car","move")
+        
 
 if __name__ == "__main__":
     if len(argv) not in [1,2]:
