@@ -1,6 +1,7 @@
 from sys import argv
 from board import board
 import csv
+from board import Board
 
 def create_output(moves_list: dict):
     types = ['car','move']
