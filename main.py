@@ -1,6 +1,6 @@
 from sys import argv
-from board import board
 import csv
+from board import Board
 
 def create_output(moves_list: dict):
     types = ['car','move']
@@ -18,7 +18,9 @@ if __name__ == "__main__":
 
     if len(argv) == 2:
         filename = argv[1]
-        Board = board(filename)
+        board = Board(f"gameboards/{filename}")
+        board.load_cars(f"gameboards/{filename}")
+        board.generate_board()
 
     zetten = [{'car' : 'A', 'move' : -1},
     {'car' : 'B', 'move' : 2}]
