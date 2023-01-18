@@ -1,4 +1,4 @@
- board
+
 from cars import Cars 
 class Board(object):
     """ maakt een board aan"""
@@ -24,10 +24,6 @@ class Board(object):
 
         return self.board    
                  
-
-
-
-        
         self.load_board(f"gameboards/{filename}.csv")
         
     def load_board(self,filename):
@@ -46,4 +42,3 @@ class Board(object):
                 auto_coords = (auto_data[2],auto_data[3])
                 auto_length = auto_data[4].rstrip('\n')
                 
-main
