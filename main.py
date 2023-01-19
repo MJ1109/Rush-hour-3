@@ -19,6 +19,7 @@ if __name__ == "__main__":
 
     if len(argv) == 2:
         filename = argv[1]
+        #rushhour = RushHour()
         board = Board(f"gameboards/{filename}")
         board.load_cars(f"gameboards/{filename}")
         board.generate_board()
