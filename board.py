@@ -74,7 +74,14 @@ class Board():
                         self.board[y][x + car.length - 1] = ' '
                         return True
                 
-                
+                #  move right
+                    if self.board[y][x + car.length + 1] == ' ':
+                        car.col = x + 1 + car.length
+                        self.board[y][x] = car.car_letter
+
+                        self.board[y][x - 2] = ' '
+
+                        return True
 
 
   
