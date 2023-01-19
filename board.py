@@ -59,7 +59,22 @@ class Board():
                 return True
         return False
     
-        
+    def move(self, auto): 
+        for car in self.cars:
+            if car.car_letter == auto: 
+
+                x = car.col - 1
+                y = car.row - 1
+
+                # move left
+                if car.orientation == 'H':
+                    if self.board[y][x-1] == ' ':
+                        car.col = x - 1
+                        self.board[y][x] = car.car_letter
+                        self.board[y][x + car.length - 1] = ' '
+                        return True
+                
+                
 
 
   
