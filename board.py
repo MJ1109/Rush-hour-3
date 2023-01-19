@@ -59,33 +59,15 @@ class Board():
                 return True
         return False
     
-    ###def print_empty_board(self):
-        for row in range(6):
-            for column in range(6):
-                print(f" {self.board[row][column]} ", end='')
-            print()
+        
 
 
-    ###def add_cars(self):
-        for i in range(Cars.cars_list):
-            r = Cars.row
-            c = Cars.col
-            if Cars.orientation == "H":
-                for i in range(Cars.length):
-                   self.board[r][c + i] = Cars.letter
-                   
-            else:
-                for i in range(Cars.length):
-                    self.board[r+i][c] = Cars.letter
+  
 
-        return self.board    
-                 
 
-                
-#if __name__ == '__main__':
-#    from sys import argv
 
-#    board1 = Board()
-#   print(board1.print_empty_board())
-#  print(board1.add_cars())
+        
+   
 
+#board1 = Board(rushhour)
+#print(board1.print_empty_board())

@@ -3,14 +3,13 @@ import csv
 
 class Cars():
     """ maakt de auto's aan aan slaat ze op """
-    def __init__(self, car, orientation, column, row, length):
-        self.car_letter = car
+    def __init__(self, car_letter, orientation, column, row, length):
+        self.car_letter = car_letter
         self.orientation= orientation
         self.col = column
         self.row = row
         self.length = length
 
-        self.list = []
 
     def __str__(self):
         return str(self.car_letter + self.orientation + self.col + self.row + self.length)
