@@ -62,34 +62,60 @@ class Board():
     def move(self, auto): 
         for car in self.cars:
             if car.car_letter == auto: 
-                
+               
+                print(f"col start = {car.col}")
                 car.col = car.col - 1
+                print(f"col start = {car.col}")
                 x = car.col
 
                 y = car.row - 1
+                #y = car.row
+                
                 print(x)
                 print(car.col)
                 # move left
-                if car.orientation == 'H':
-                    if self.board[y][x-1] == ' ':
-                        x = x - 1
-                        
-                        print(x)
-                        print(car.col)
-                        self.board[y][x] = car.car_letter
-                        self.board[y][x + car.length] = ' '
-                        
-                        return True
+                if car.orientation == 'H' and self.board[y][x-1] == ' ':
+                    x = x - 1 
+                    print(x)
+                    self.board[y][x] = car.car_letter
+                    self.board[y][x + car.length] = ' '
+                    car.col = x 
+                    print(f"col eind optie 1 = {car.col}")
+                    return True
                 
-                #  move right
-                    # if self.board[y][x + car.length + 1] == ' ':
-                    #     x = x + 1 + car.length
-                    #     self.board[y][x] = car.car_letter
+                #move right
+                elif car.orientation == 'H' and self.board[y][x + car.length + 1] == ' ':
+                    x = x + car.length + 1
+                    print("hallo")
+                    print(x)
+                    self.board[y][x] = car.car_letter
+                    
+                    self.board[y][x - car.length ] = ' '
+                    car.col = x 
+                    return True
+                
+                #move horizontal plus one 
+                # elif car.orientation == 'V' and  self.board[y + 1][x] == ' ':
+                #     print(f" row = {car.row}")
+                #     print(f" y = {y}" )
+                #     y = y + 1
+                #     print("hallo")
+                #     self.board[y][x] = car.car_letter
+                #     self.board[y + car.length][x] = ' '
+                #     print(y)
+                #     return True
 
-                    #     self.board[y][x - 2] = ' '
+                #     if self.board[y - 1][x] == ' ':
+                #         y = y - 1
+                        
+                      
+                       
+                #         self.board[y][x] = car.car_letter
+                #         self.board[y + car.length][x] = ' '
+                        
+                #         return True
 
-                    #     return True
-
+                
 
   
 

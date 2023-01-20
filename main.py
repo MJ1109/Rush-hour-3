@@ -28,6 +28,7 @@ if __name__ == "__main__":
     {'car' : 'B', 'move' : 2}]
     create_output(zetten)
 
+    # auto_positie = board.cars_position()
     while board.is_solved() == False: 
         auto = input("auto die je wil schuiven: ")
         valid = board.move(auto)
