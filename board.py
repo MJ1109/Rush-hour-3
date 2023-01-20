@@ -114,6 +114,15 @@ class Board():
                 #         self.board[y + car.length][x] = ' '
                         
                 #         return True
+                # move up
+                if car.orientation == 'V':
+                    if self.board[y - 1][x] == ' ':
+                        y = y - 1
+
+                        self.board[y][x] = car.car_letter
+                        self.board[y + car.length][x] = ' '
+                        return True
+
 
                 
 
