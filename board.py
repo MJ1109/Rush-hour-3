@@ -45,9 +45,6 @@ class Board():
             if car.orientation == 'H' and x != 5:       
                 for i in range(car.length):
                     self.board[y][x + i] = car.car_letter
-            #elif car.orientation == 'H' and x == 5: 
-                 #for i in range(car.length):
-                    #self.board[y][x - i] = car.car_letter
             else:
                 for i in range(car.length):
                     self.board[y + i][x] = car.car_letter
@@ -69,52 +66,56 @@ class Board():
     
 
     def move(self, auto): 
+        # Move the cars if the space around them is empty
         for car in self.cars:
             if car.car_letter == auto: 
-                #print(f"col start = {car.col}")
-                #car.col = car.col - 1
-                print(f"col start = {car.col}")
                 x = car.col
-                #y = car.row - 1
                 y = car.row
-
-                print(x)
-                #print(car.col)
                 
                 # move left
                 if car.orientation == 'H' and x -1 >= 0 and  self.board[y][x-1] == ' ':
                     x = x - 1 
-                    print(x)
                     self.board[y][x] = car.car_letter
                     self.board[y][x + car.length] = ' '
                     car.col = x 
-                    print(f"col eind optie 1 = {car.col}")
                     return True
-                
                 
                 # right
                 elif car.orientation == 'H' and  x != 5 and self.board[y][x + car.length] == ' ':
                     x = x + car.length
-                    print("hallo")
-                    print(x)
+
                     self.board[y][x] = car.car_letter
-                    
                     self.board[y][x - car.length ] = ' '
+
                     if car.length == 2: 
                         car.col = x - 1 
                     else: 
                         car.col = x - 2
-                    print(f"col eind optie 4 = {car.col}")
                     return True
 
                 # up
                 elif car.orientation == 'V' and  y - 1 >= 0 and self.board[y - 1][x] == ' ':
-                    
                     y = y - 1
+
                     self.board[y][x] = car.car_letter
                     self.board[y + car.length][x] = ' '
+
                     car.row = y
                         
                     return True
                 
+                # down
+                elif car.orientation == 'V' and  y != 5 and self.board[y + car.length][x] == ' ':
+                    y = y + car.length
+
+                    self.board[y][x] = car.car_letter
+                    self.board[y - car.length][x] = ' '
+                    
+                    if car.length == 2: 
+                        car.row = y - 1 
+                    else: 
+                        car.row = y - 2
+
+                    return True
+                    
                
