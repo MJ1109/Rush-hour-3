@@ -78,12 +78,12 @@ class Board():
                     self.board[y][x] = car.car_letter
                     self.board[y][x + car.length] = ' '
                     car.col = x 
+                    car.has_moved(-1)
                     return True
                 
                 # right
                 elif car.orientation == 'H' and  x != self.dim - 1 and self.board[y][x + car.length] == ' ':
                     x = x + car.length
-
                     self.board[y][x] = car.car_letter
                     self.board[y][x - car.length ] = ' '
 
@@ -91,17 +91,18 @@ class Board():
                         car.col = x - 1 
                     else: 
                         car.col = x - 2
+
+                    car.has_moved(1)
                     return True
 
                 # up
                 elif car.orientation == 'V' and  y - 1 >= 0 and self.board[y - 1][x] == ' ':
                     y = y - 1
-
                     self.board[y][x] = car.car_letter
                     self.board[y + car.length][x] = ' '
 
                     car.row = y
-                        
+                    car.has_moved(-1)
                     return True
                 
                 # down
@@ -115,7 +116,8 @@ class Board():
                         car.row = y - 1 
                     else: 
                         car.row = y - 2
-
+                    
+                    car.has_moved(1)
                     return True
                     
                
