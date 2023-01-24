@@ -92,7 +92,7 @@ class Board():
                     return True
                 
                 
-                
+                # right
                 elif car.orientation == 'H' and  x != 5 and self.board[y][x + car.length] == ' ':
                     x = x + car.length
                     print("hallo")
@@ -106,19 +106,15 @@ class Board():
                         car.col = x - 2
                     print(f"col eind optie 4 = {car.col}")
                     return True
+
+                # up
+                elif car.orientation == 'V' and  y - 1 >= 0 and self.board[y - 1][x] == ' ':
+                    
+                    y = y - 1
+                    self.board[y][x] = car.car_letter
+                    self.board[y + car.length][x] = ' '
+                    car.row = y
+                        
+                    return True
                 
                
-                
-               
-
-                
-
-  
-
-
-
-        
-   
-
-#board1 = Board(rushhour)
-#print(board1.print_empty_board())
