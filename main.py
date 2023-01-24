@@ -22,17 +22,23 @@ if __name__ == "__main__":
         #rushhour = RushHour()
         board = Board(f"gameboards/{filename}")
         board.load_cars(f"gameboards/{filename}")
+        position = board.in_position()
         board.generate_board()
 
     zetten = [{'car' : 'A', 'move' : -1},
     {'car' : 'B', 'move' : 2}]
     create_output(zetten)
 
+   
+
+    
     # auto_positie = board.cars_position()
     while board.is_solved() == False: 
         auto = input("auto die je wil schuiven: ")
         valid = board.move(auto)
         board.generate_board()
+        # return it to false 
+        #board.move_optie4 = False
 
     
     

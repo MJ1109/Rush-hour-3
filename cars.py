@@ -10,6 +10,10 @@ class Cars():
         self.row = row
         self.length = length
 
+    #def has_moved(self):
+        #self.moved == True
+    
+    
 
     def __str__(self):
         return str(self.car_letter + self.orientation + self.col + self.row + self.length)
