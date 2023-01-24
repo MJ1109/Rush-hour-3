@@ -42,7 +42,7 @@ class Board():
             y = car.row
             
             # Check orientation
-            if car.orientation == 'H' and x != 5:       
+            if car.orientation == 'H' and x != self.dim - 1:       
                 for i in range(car.length):
                     self.board[y][x + i] = car.car_letter
             else:
@@ -81,7 +81,7 @@ class Board():
                     return True
                 
                 # right
-                elif car.orientation == 'H' and  x != 5 and self.board[y][x + car.length] == ' ':
+                elif car.orientation == 'H' and  x != self.dim - 1 and self.board[y][x + car.length] == ' ':
                     x = x + car.length
 
                     self.board[y][x] = car.car_letter
@@ -105,7 +105,7 @@ class Board():
                     return True
                 
                 # down
-                elif car.orientation == 'V' and  y != 5 and self.board[y + car.length][x] == ' ':
+                elif car.orientation == 'V' and  y != self.dim - 1 and self.board[y + car.length][x] == ' ':
                     y = y + car.length
 
                     self.board[y][x] = car.car_letter
