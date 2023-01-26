@@ -13,7 +13,7 @@ class Baseline():
         list_dir = [-1,1]
         self.board.in_position()
         self.board.generate_board()
-        amnt_solutions = [] 
+        
         amnt_steps = 0
         move = (0,0)
 
@@ -27,16 +27,14 @@ class Baseline():
                 self.board.generate_board()
                 amnt_steps += 1
             
-        amnt_solutions.append(amnt_steps)
+        
         for car in self.board.cars:
             print(car.car_letter,car.moved)
 
-        return amnt_solutions
+        return amnt_steps
     
 
 def print_results():
-    bb = Board("Rushhour6x6_1.csv")
-    cc = bb.load_cars()
     base = Baseline("Rushhour6x6_1.csv")
     return print(base.algo())
 
