@@ -32,7 +32,7 @@ if __name__ == "__main__":
     while board.is_solved() == False: 
         auto = input("auto die je wil schuiven: ")
         dirc = input("welke kant(-1 of 1)? ")
-        valid = board.move(auto, dirc)
+        valid = board.move(auto, int(dirc))
         board.generate_board()
         board.print_board()
 
