@@ -23,6 +23,7 @@ if __name__ == "__main__":
         position = board.in_position()
         board.generate_board()
 
+
     zetten = [{'car' : 'A', 'move' : -1},
     {'car' : 'B', 'move' : 2}]
     create_output(zetten)
@@ -33,6 +34,7 @@ if __name__ == "__main__":
         dirc = input("welke kant(-1 of 1)? ")
         valid = board.move(auto, dirc)
         board.generate_board()
+        board.print_board()
 
     
     
