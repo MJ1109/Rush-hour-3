@@ -27,15 +27,21 @@ class Baseline():
                 self.board.generate_board()
                 amnt_steps += 1
             
-        
-        for car in self.board.cars:
-            print(car.car_letter,car.moved)
-
         return amnt_steps
     
+    def print_solutions(self):
+        solutions = []
 
-def print_results():
+        for car in self.board.cars:
+            solutions.append((car.car_letter,car.moved))
+        
+        return print(solutions)
+    
+
+def print_results(solutions):
     base = Baseline("Rushhour6x6_1.csv")
-    return print(base.algo())
+    print(base.algo())
+    if solutions == True:
+        return base.print_solutions()
 
-print_results()
+print_results(True)
