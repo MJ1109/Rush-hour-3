@@ -18,8 +18,8 @@ if __name__ == "__main__":
 
     if len(argv) == 2:
         filename = argv[1]
-        board = Board(f"gameboards/{filename}")
-        board.load_cars(f"gameboards/{filename}")
+        board = Board(filename)
+        board.load_cars()
         position = board.in_position()
         board.generate_board()
 

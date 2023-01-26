@@ -44,4 +44,4 @@ def print_results(solutions):
     if solutions == True:
         return base.print_solutions()
 
-print_results(True)
+print_results(False)
