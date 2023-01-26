@@ -30,7 +30,8 @@ if __name__ == "__main__":
     # auto_positie = board.cars_position()
     while board.is_solved() == False: 
         auto = input("auto die je wil schuiven: ")
-        valid = board.move(auto)
+        dirc = input("welke kant(-1 of 1)? ")
+        valid = board.move(auto, dirc)
         board.generate_board()
 
     

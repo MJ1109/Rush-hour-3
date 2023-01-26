@@ -65,7 +65,7 @@ class Board():
     
     
 
-    def move(self, auto): 
+    def move(self, auto, dirc): 
         # Move the cars if the space around them is empty
         for car in self.cars:
             if car.car_letter == auto: 
@@ -73,7 +73,7 @@ class Board():
                 y = car.row
                 
                 # move left
-                if car.orientation == 'H' and x -1 >= 0 and  self.board[y][x-1] == ' ':
+                if car.orientation == 'H' and dirc == "-1" and x -1 >= 0 and  self.board[y][x-1] == ' ':
                     x = x - 1 
                     self.board[y][x] = car.car_letter
                     self.board[y][x + car.length] = ' '
@@ -82,7 +82,7 @@ class Board():
                     return True
                 
                 # right
-                elif car.orientation == 'H' and  x != self.dim - 1 and self.board[y][x + car.length] == ' ':
+                elif car.orientation == 'H' and dirc == "1" and  x != self.dim - 1 and self.board[y][x + car.length] == ' ':
                     x = x + car.length
                     self.board[y][x] = car.car_letter
                     self.board[y][x - car.length ] = ' '
@@ -96,7 +96,7 @@ class Board():
                     return True
 
                 # up
-                elif car.orientation == 'V' and  y - 1 >= 0 and self.board[y - 1][x] == ' ':
+                elif car.orientation == 'V' and dirc == "-1" and  y - 1 >= 0 and self.board[y - 1][x] == ' ':
                     y = y - 1
                     self.board[y][x] = car.car_letter
                     self.board[y + car.length][x] = ' '
@@ -106,7 +106,7 @@ class Board():
                     return True
                 
                 # down
-                elif car.orientation == 'V' and  y != self.dim - 1 and self.board[y + car.length][x] == ' ':
+                elif car.orientation == 'V' and dirc == "1" and y != self.dim - 1 and self.board[y + car.length][x] == ' ':
                     y = y + car.length
 
                     self.board[y][x] = car.car_letter
