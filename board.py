@@ -2,11 +2,11 @@ from cars import Cars
 
 # Searches dimensions based on filename
 def search_dimensions(filename):
-    if filename[19] == "6":
+    if filename[8] == "6":
         return 6
-    elif filename[19] == "9":
+    elif filename[8] == "9":
         return 9
-    elif filename[19] == "1":
+    elif filename[8] == "1":
         return 12
 
 
@@ -18,9 +18,9 @@ class Board():
         self.dim = search_dimensions(filename)
         self.board = [[ ' ' for i in range(self.dim)] for j in range(self.dim)]
 
-    def load_cars(self,filename):
+    def load_cars(self):
         # open file and skip the first line
-        with open(filename) as f:
+        with open(f"gameboards/{self.filename}") as f:
             next(f)
             while True:
                 
@@ -42,13 +42,16 @@ class Board():
             y = car.row
             
             # Check orientation
-            if car.orientation == 'H' and x != self.dim - 1:       
+            if car.orientation == 'H' and x <= self.dim - car.length:       
                 for i in range(car.length):
                     self.board[y][x + i] = car.car_letter
-            else:
+            elif car.orientation == 'V' and y <= self.dim - car.length:
                 for i in range(car.length):
                     self.board[y + i][x] = car.car_letter
                 
+        
+    # Print board
+    def print_board(self):
         return print(*self.board, sep="\n")  
 
      # Check if Red car is in end position
@@ -72,52 +75,61 @@ class Board():
                 x = car.col
                 y = car.row
                 
-                # move left
-                if car.orientation == 'H' and dirc == "-1" and x -1 >= 0 and  self.board[y][x-1] == ' ':
-                    x = x - 1 
-                    self.board[y][x] = car.car_letter
-                    self.board[y][x + car.length] = ' '
-                    car.col = x 
-                    car.has_moved(-1)
-                    return True
                 
-                # right
-                elif car.orientation == 'H' and dirc == "1" and  x != self.dim - 1 and self.board[y][x + car.length] == ' ':
-                    x = x + car.length
-                    self.board[y][x] = car.car_letter
-                    self.board[y][x - car.length ] = ' '
+                if car.orientation == 'H':
+                    # Move to the left
+                    if dirc == -1: 
+                        if  x -1 >= 0 and  self.board[y][x-1] == ' ':
+                            x = x - 1 
+                            self.board[y][x] = car.car_letter
+                            self.board[y][x + car.length] = ' '
+                            car.col = x 
+                            car.has_moved(-1)
+                            return True
+                    
+                    # Move to the right
+                    else:
+                        if  x < (self.dim - car.length) and self.board[y][x + car.length] == ' ':
+                            x = x + car.length
+                            self.board[y][x] = car.car_letter
+                            self.board[y][x - car.length ] = ' '
 
-                    if car.length == 2: 
-                        car.col = x - 1 
-                    else: 
-                        car.col = x - 2
+                            if car.length == 2: 
+                                car.col = x - 1 
+                            else: 
+                                car.col = x - 2
 
-                    car.has_moved(1)
-                    return True
+                            car.has_moved(1)
+                            return True
 
-                # up
-                elif car.orientation == 'V' and dirc == "-1" and  y - 1 >= 0 and self.board[y - 1][x] == ' ':
-                    y = y - 1
-                    self.board[y][x] = car.car_letter
-                    self.board[y + car.length][x] = ' '
-
-                    car.row = y
-                    car.has_moved(-1)
-                    return True
                 
-                # down
-                elif car.orientation == 'V' and dirc == "1" and y != self.dim - 1 and self.board[y + car.length][x] == ' ':
-                    y = y + car.length
+                if car.orientation == 'V':
+                    # Move up
+                    if dirc == -1:
+                        if  y - 1 >= 0 and self.board[y - 1][x] == ' ':
+                            y = y - 1
+                            self.board[y][x] = car.car_letter
+                            self.board[y + car.length][x] = ' '
 
-                    self.board[y][x] = car.car_letter
-                    self.board[y - car.length][x] = ' '
-                    
-                    if car.length == 2: 
-                        car.row = y - 1 
-                    else: 
-                        car.row = y - 2
-                    
-                    car.has_moved(1)
-                    return True
-                    
+                            car.row = y
+                            car.has_moved(-1)
+                            return True
+                
+                    # Move down
+                    else:
+                        if y < (self.dim - car.length) and self.board[y + car.length][x] == ' ':
+                            y = y + car.length
+
+                            self.board[y][x] = car.car_letter
+                            self.board[y - car.length][x] = ' '
+                            
+                            if car.length == 2: 
+                                car.row = y - 1 
+                            else: 
+                                car.row = y - 2
+                            
+                            car.has_moved(1)
+                            return True
+                return False
+                            
                
