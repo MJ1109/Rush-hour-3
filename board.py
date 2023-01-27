@@ -93,12 +93,10 @@ class Board():
                             x = x + car.length
                             self.board[y][x] = car.car_letter
                             self.board[y][x - car.length ] = ' '
-
                             if car.length == 2: 
                                 car.col = x - 1 
                             else: 
                                 car.col = x - 2
-
                             car.has_moved(1)
                             return True
 
@@ -110,7 +108,6 @@ class Board():
                             y = y - 1
                             self.board[y][x] = car.car_letter
                             self.board[y + car.length][x] = ' '
-
                             car.row = y
                             car.has_moved(-1)
                             return True
@@ -119,15 +116,12 @@ class Board():
                     else:
                         if y < (self.dim - car.length) and self.board[y + car.length][x] == ' ':
                             y = y + car.length
-
                             self.board[y][x] = car.car_letter
                             self.board[y - car.length][x] = ' '
-                            
                             if car.length == 2: 
                                 car.row = y - 1 
                             else: 
                                 car.row = y - 2
-                            
                             car.has_moved(1)
                             return True
                 return False
