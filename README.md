@@ -52,7 +52,7 @@ Om de code in deze repository werkend te krijgen zijn er een aantal libraries no
     ```
 
 ## Gebruik
-Om de code kan gerund door het volgende commando uit te voeren: 
+De code kan gerund worden door het volgende commando uit te voeren: 
 
      python3 main.py Rushhour6x6_1.csv
     
