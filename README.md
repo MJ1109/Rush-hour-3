@@ -20,6 +20,8 @@ De boards zijn allemaal op dezelfde manier opgebouwd:
 + Het veld is opgebouwd in een tabel. 
     + De bovenste linker hoek is aangegeven met positie (1, 1)
 
+Het doel van de opdracht is om door middel van algoritmes het spel zo snel mogelijk op te lossen. De algoritmes mogen zelf uitgekozen worden. 
+
 ## Bestanden
 In deze repository zijn een aantal bestanden de vinden: 
 +  **Classes** 
