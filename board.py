@@ -132,4 +132,42 @@ class Board():
                             return True
                 return False
                             
+    def possible_moves(self,auto,dir):
+        # Check for a car if movement is possible
+        for car in self.cars:
+
+            if car.car_letter == auto:
+                x = car.col
+                y = car.row
+
+                if car.orientation == 'H':
+                    # Move right
+                    if dir == 1:
+                        if x < (self.dim - car.length) and self.board[y][x + car.length] == ' ':
+                            return True
+                    # Move left
+                    else:
+                        if  x -1 >= 0 and  self.board[y][x-1] == ' ':
+                            return True
+                
+                else:
+                    # Move up
+                    if dir == 1:
+                        if y < (self.dim - car.length) and self.board[y + car.length][x] == ' ' : 
+                            return True
+                    # Move down
+                    else:
+                        if y - 1 >= 0 and self.board[y - 1][x] == ' ':
+                            return True
                
+    # Convert nested list of board into a string
+    def convert_string(self):
+
+        nested = self.board
+        one_list = [item for sub in nested for item in sub]
+        for i in range(len(one_list)):
+            if one_list[i] == ' ':
+                one_list[i] = 0 
+
+        converted = ' '.join(str(e) for e in one_list)
+        return converted
