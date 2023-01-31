@@ -122,8 +122,12 @@ def make_csv(l_c):
     
     return None 
 
-
-
-
+if __name__ == "__main__":
+    input = input("How many rounds? ")
+    i_input, Total_c, a_s, ma, mi, l, l_t, l_c = repeat(input)
+    mean = mean(i_input, Total_c)
+    
+    
+  
     
 
