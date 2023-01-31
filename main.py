@@ -2,6 +2,7 @@ from sys import argv
 import csv
 from board import Board
 
+# maakt csv bestand met de output
 def create_output(moves_list: dict):
         types = ['car','move']
         with open('output.csv','w',newline='') as file:

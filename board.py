@@ -60,7 +60,8 @@ class Board():
             if car.car_letter == "X" and car.col == (self.dim - 2):
                 return True
         return False
-        
+    
+    # puts the cars on the right board coordinates 
     def in_position(self):
         for car in self.cars:
             car.col = car.col - 1
@@ -164,3 +165,16 @@ class Board():
 
         converted = ' '.join(str(e) for e in one_list)
         return converted
+
+    def red_position(self):
+        for car in self.cars:
+            x = car.col
+            y = car.row
+
+        if car.car_letter == "X":
+            red_pos = self.board[x][y]
+            return red_pos
+
+            # for car in self.cars:
+            # if car.car_letter == "X" and car.col == (self.dim - 2):
+
