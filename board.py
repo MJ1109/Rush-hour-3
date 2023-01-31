@@ -157,7 +157,6 @@ class Board():
                
     # Convert nested list of board into a string
     def convert_string(self):
-
         nested = self.board
         one_list = [item for sub in nested for item in sub]
         for i in range(len(one_list)):
