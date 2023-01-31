@@ -1,15 +1,19 @@
 from board import Board
 import random as rd
+import time 
 
 class Baseline():
-
+   
     def __init__(self,filename) -> None:
+        
         self.filename = filename 
         self.fn = "gameboards/{filename}"
         self.board = Board(filename) 
         self.board.load_cars()
 
     def algo(self):
+        st = time.time()
+
         list_dir = [-1,1]
         self.board.in_position()
         self.board.generate_board()
@@ -26,8 +30,13 @@ class Baseline():
                 move = (r_car.car_letter,dir)
                 self.board.generate_board()
                 amnt_steps += 1
-            
-        return amnt_steps
+       
+        et = time.time()
+        elapsed_time = et - st
+        final_res = elapsed_time * 1000
+       
+
+        return amnt_steps, final_res
     
     def print_solutions(self):
         solutions = []
@@ -43,5 +52,7 @@ def print_results(solutions):
     print(base.algo())
     if solutions == True:
         return base.print_solutions()
+   
 
-print_results(False)
+if __name__ == "__main__":
+    print_results(False)
