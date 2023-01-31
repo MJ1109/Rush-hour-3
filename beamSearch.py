@@ -1,6 +1,8 @@
 from math import sqrt
+import time
 from board import Board
 from cars import Cars 
+import copy
 
 # weights van de keuze af laten hangen van heuristieken, 
 # bijv hoeveel auto's blokkeren de rode/hoeveel tegels tot uitgang
@@ -13,45 +15,44 @@ class Beam_search():
     '''
 
     # take inputs
-    def __init__(self, filename) -> None:
+    def __init__(self,filename) -> None:
+        
         self.filename = filename 
         self.fn = "gameboards/{filename}"
         self.board = Board(filename) 
         self.board.load_cars()
-        self.cars = Cars(car_letter, orientation, column, row, length)
+        self.board.in_position()
+        self.board.generate_board()
+
+    def beam(self):
+        st = time.time()
+
+        list_dir = [-1,1]
+        
+        self.board.print_board()
+        
+        amnt_steps = 0
+        move = (0,0)
+
     
-    def weight_calc(self, filename):
-        # calculate the cars that are blocking the exit
-        # width = Board.search_dimensions(filename)
-        # list_len = sqrt(len(Board.convert_string()))
+    def weight_calc(self, board):
+        print(vars(board))
         obstructions = 0
 
-        
+        for car in board.cars:
+            print(vars(car))
+            if car.car_letter == 'X':
+                y = car.row
+                x = car.col
 
-        for car in self.cars:
-            x = car.col
-            y = car.row
-
-            while self.board[x + 1][y] < Board.dim:
-                if car.car_letter == "X" and Board.board[y][x + 1] !=' ':
-                    obstructions = obstructions + 1
-                    x = x + 1
-            return x
+                for position in board.board[y][x+2:]:
+                    if position != ' ':
+                        obstructions += 1
+        return obstructions
 
 if __name__ == "__main__":
     beamsearch = Beam_search("Rushhour6x6_1.csv")
-    print(beamsearch.weight_calc("Rushhour6x6_1.csv"))
+    board_copy= copy.deepcopy(beamsearch.board)
+    beamsearch.weight_calc(board_copy, "A", -1)
+   
 
-    # def algorithm(self):
-    #     list_dir = [-1,1]
-    #     self.board.in_position()
-    #     self.board.generate_board()
-        
-    #     steps = 0
-    #     states = (0,0)
-
-
-    #     while self.board.is_solved() == False:
-    #         # self.board.generate_board()
-    #         steps += 1
-    #         states += 1
