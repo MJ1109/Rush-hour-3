@@ -3,6 +3,12 @@ import copy
 
 # Searches dimensions based on filename
 def search_dimensions(filename):
+    ''' 
+    Get the filename to generate the right board dimensions
+
+    Keyword arguments: 
+    filename -- filename from the user's command
+    '''
     if filename[8] == "6":
         return 6
     elif filename[8] == "9":
@@ -12,7 +18,7 @@ def search_dimensions(filename):
 
 
 class Board():
-    """ maakt een board aan"""
+    """ maakt een board aan en laadt de juiste auto's hierop in"""
     def __init__(self,filename) -> None:
         self.filename = filename
         self.cars = []
