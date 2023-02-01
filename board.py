@@ -214,15 +214,3 @@ class Board():
                             poss_moves.append([car.car_letter,-1])
                 
         return poss_moves
-    
-    def possible_boards(self):
-        possible = []
-        next_moves = board.can_move()
-        print(next_moves)
-        for next in next_moves:
-            new_cars = copy.deepcopy(self.cars)
-            d = self.move(new_cars[next[0]],next[1])
-            d.cars = new_cars
-            possible.append(d)
-
-        return possible
