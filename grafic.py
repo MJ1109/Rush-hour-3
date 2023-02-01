@@ -22,7 +22,7 @@ def repeat(input):
     # excutes the loop 
     for i in range(int_input):
         
-        base = Baseline("Rushhour6x6_2.csv") 
+        base = Baseline("Rushhour6x6_1.csv") 
         
         # how many moves it took to solve 
         amount_s, final_r = base.algo()
@@ -127,7 +127,17 @@ if __name__ == "__main__":
     i_input, Total_c, a_s, ma, mi, l, l_t, l_c = repeat(input)
     mean = mean(i_input, Total_c)
     
+    #code for boxplot
+        #box_plot(ma)
+   
+    #code for scatterplot
+    #scatter_plot(l)
+
+    #code for histogram 
+        #histogram(l)
     
+    #code for line chart of the time 
+        #time_LineChart(l_t)
   
     
 
