@@ -55,7 +55,16 @@ Om de code in deze repository werkend te krijgen zijn er een aantal libraries no
 De code kan gerund worden door het volgende commando uit te voeren: 
 
      python3 main.py Rushhour6x6_1.csv
+
+## Visualisatie
+Om een plot moet je in main de plot oproepen door bijvoorbeeld:
     
+    box_plot(ma)
+ 
+ Waarna je de volgende commande moet runnen:
+    
+    python3 grafic.py Rushhour6x6_1.csv
+
 ## Auteurs
 + Amy Oppong 11201061
 + Manuja Jaggan 14736950
