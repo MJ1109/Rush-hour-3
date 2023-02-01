@@ -2,6 +2,8 @@ from board import Board
 from cars import Cars
 import random as rd
 from queue_1 import Queue
+from collections import deque
+import copy
 
 
 def convert(value):
@@ -21,74 +23,78 @@ def poss_moves(board):
    
     return poss_moves
 
+def child_states(board):
+    pss = poss_moves(board)
+    child_state = []
+    poss = rd.sample(pss, k = len(pss))
+    for p in poss:
+        c = board.move(p[0],p[1])
+        c.generate_board()
+        child_state.append(c)
+    
+    print(child_state)
+    return child_state
+
 class Breadth_first():
 
     def __init__(self,filename,max_depth) -> None:
         self.filename = filename 
         self.board = Board(self.filename)
         self.board.load_cars()
-        self.max_depth = max_depth
-        self.solutions = []
-
-    def func_met_q(self):
-        queue = list()
-        new_path = Queue()
         self.board.in_position()
         self.board.generate_board()
-        prev_move = (0,0)
-        queue.append(self.board)
-        new_path.enqueue(prev_move)
-        closed = dict()
-        closed[self.board] = None
-
-        
-        # Start while loop
-        while len(queue) :
-
-            # Haal eerste item uit queue
-            node = queue.pop(0)
-            new_path.dequeue()
-
-            # Hossel de mogelijke moves
-            poss_move = poss_moves(node)
-            pss = rd.sample(poss_move,k = len(poss_move))
-
-            # Voor alle mogelijke moves maak een child state
-            for moves in pss:
-
-                if prev_move != (moves[0],convert(moves[1])): 
-
-                    # Beweeg het bord echt
-                    node.move(moves[0],moves[1])
-                    
-                    node.generate_board()
-                    #child = self.board.convert_string()
-                    #cc = copy.deepcopy(cc)
-                    prev_move = (moves[0],moves[1])
-                    #print(moves)
-                    # Maak een child state en sla de gemaakte moves op 
-                    child = node.convert_string()
-                    
-                    new_path.enqueue((moves[0],moves[1]))
-                   
-                    # Controleer of we niet eerder deze zet hebben gemaakt
-                    if child not in closed:
-                        closed[child] = [node.cars,moves]
-                        queue.append(node)
-                        
-
-                    # Check of is opgelost
-                    
-                    if node.is_solved() == True:
-                        # check om te kijken of er oplossingen zijn
-                        print("yes")
-                        self.solutions.append(1)
-                                                
-                        return len(self.solutions)
+        self.max_depth = max_depth
+        self.solutions = []
     
-    def __eq__(self,other) -> bool:
-        return self.value == other.value
+
+    def poging_twee(self):
+        queue = list()
+        closed = dict()
+        bb = copy.deepcopy(self.board)
+        closed[self.board.convert_string()] = None
+        queue.append(bb)
+        begin = (0,0)
+        path = []
+        path.append(begin)
+
+
+        while len(queue):
+            #print(path)
+            # get the first node from the queue
+            node = queue.pop(0)
+            node.generate_board()  
+            fa = rd.sample(poss_moves(node), k = len(poss_moves(node)))
+            print(len(queue))
+
+            # generate all possible children
+
+            for move in node.can_move():
+                #print(move)
+                child = node.move(move[0],move[1])
+                new = child.generate_board()
+                child.print_board()
+                print()
+                #child.generate_board()
+                #print("node",node.convert_string())
+                #print("child",new.convert_string())
+                
+                # check if child has already been processed
+                
+                if child.convert_string() not in closed:
+                    # add child to closed list and to the queue
+                    
+                    print("wel gelukt:" , move)
+                    closed[child.convert_string()] = [node.cars]
+                    queue.append(child)
+                    #print(child.convert_string())
+                    path.append(1)
+                else:
+                    print(":(")
+                # check if current child is a solution
+                if child.is_solved():
+                    return print(child.convert_string())
+                
 
 
 breadth = Breadth_first("Rushhour6x6_1.csv",100)
-print(breadth.func_met_q())
+print(breadth.poging_twee())

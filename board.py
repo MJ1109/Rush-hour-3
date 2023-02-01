@@ -71,6 +71,9 @@ class Board():
 
     def move(self, auto, dirc): 
         # Move the cars if the space around them is empty
+        
+        node = Board(self.filename)
+
         for car in self.cars:
             if car.car_letter == auto: 
                 x = car.col
@@ -86,7 +89,7 @@ class Board():
                             self.board[y][x + car.length] = ' '
                             car.col = x 
                             car.has_moved(-1)
-                            return True
+                            #return True
                     
                     # Move to the right
                     else:
@@ -99,7 +102,7 @@ class Board():
                             else: 
                                 car.col = x - 2
                             car.has_moved(1)
-                            return True
+                            #return True
 
                 
                 if car.orientation == 'V':
@@ -111,7 +114,7 @@ class Board():
                             self.board[y + car.length][x] = ' '
                             car.row = y
                             car.has_moved(-1)
-                            return True
+                            #return True
                 
                     # Move down
                     else:
@@ -124,8 +127,10 @@ class Board():
                             else: 
                                 car.row = y - 2
                             car.has_moved(1)
-                            return True
-                return False
+                            #return True
+        node.board = self.board
+        node.cars = self.cars
+        return node
                             
     def possible_moves(self,auto,dir):
         # Check for a car if movement is possible
@@ -178,3 +183,31 @@ class Board():
             # for car in self.cars:
             # if car.car_letter == "X" and car.col == (self.dim - 2):
 
+
+    def can_move(self):
+        poss_moves = []
+        for car in self.cars:
+            x = car.col
+            y = car.row
+
+            if car.orientation == 'H':
+                # Move right
+                if dir == 1:
+                    if x < (self.dim - car.length) and self.board[y][x + car.length] == ' ':
+                        poss_moves.append([car.car_letter,1])
+                    # Move left
+                else:
+                    if  x -1 >= 0 and  self.board[y][x-1] == ' ':
+                        poss_moves.append([car.car_letter,-1])
+                
+            else:
+                    # Move up
+                if dir == 1:
+                    if y < (self.dim - car.length) and self.board[y + car.length][x] == ' ' : 
+                        poss_moves.append([car.car_letter,1])
+                    # Move down
+                else:
+                    if y - 1 >= 0 and self.board[y - 1][x] == ' ':
+                        poss_moves.append([car.car_letter,-1])
+               
+        return poss_moves
