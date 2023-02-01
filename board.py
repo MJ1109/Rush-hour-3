@@ -1,4 +1,5 @@
 from cars import Cars 
+import copy 
 
 # Searches dimensions based on filename
 def search_dimensions(filename):
@@ -184,30 +185,44 @@ class Board():
             # if car.car_letter == "X" and car.col == (self.dim - 2):
 
 
-    def can_move(self):
+    def can_move(self,board):
         poss_moves = []
-        for car in self.cars:
-            x = car.col
-            y = car.row
+        dirc = [-1,1]
+        for car in board.cars:
+            for dir in dirc:
+                x = car.col
+                y = car.row
 
-            if car.orientation == 'H':
-                # Move right
-                if dir == 1:
-                    if x < (self.dim - car.length) and self.board[y][x + car.length] == ' ':
-                        poss_moves.append([car.car_letter,1])
-                    # Move left
+                if car.orientation == 'H':
+                    # Move right
+                    if dir == 1:
+                        if x < (self.dim - car.length) and self.board[y][x + car.length] == ' ':
+                            poss_moves.append([car.car_letter,1])
+                        # Move left
+                    else:
+                        if  x -1 >= 0 and  self.board[y][x-1] == ' ':
+                            poss_moves.append([car.car_letter,-1])
+                    
                 else:
-                    if  x -1 >= 0 and  self.board[y][x-1] == ' ':
-                        poss_moves.append([car.car_letter,-1])
+                        # Move up
+                    if dir == 1:
+                        if y < (self.dim - car.length) and self.board[y + car.length][x] == ' ' : 
+                            poss_moves.append([car.car_letter,1])
+                        # Move down
+                    else:
+                        if y - 1 >= 0 and self.board[y - 1][x] == ' ':
+                            poss_moves.append([car.car_letter,-1])
                 
-            else:
-                    # Move up
-                if dir == 1:
-                    if y < (self.dim - car.length) and self.board[y + car.length][x] == ' ' : 
-                        poss_moves.append([car.car_letter,1])
-                    # Move down
-                else:
-                    if y - 1 >= 0 and self.board[y - 1][x] == ' ':
-                        poss_moves.append([car.car_letter,-1])
-               
         return poss_moves
+    
+    def possible_boards(self):
+        possible = []
+        next_moves = board.can_move()
+        print(next_moves)
+        for next in next_moves:
+            new_cars = copy.deepcopy(self.cars)
+            d = self.move(new_cars[next[0]],next[1])
+            d.cars = new_cars
+            possible.append(d)
+
+        return possible
