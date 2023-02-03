@@ -25,7 +25,7 @@ class Baseline():
             dir = rd.choice(list_dir)
             r_car = rd.choice(self.board.cars)
                 
-            if move != (r_car,dir) and self.board.move(r_car.car_letter,dir) == True :
+            if move != (r_car,dir) and self.board.possible_moves(r_car.car_letter,dir) == True :
                 self.board.move(r_car.car_letter,dir)
                 move = (r_car.car_letter,dir)
                 self.board.generate_board()
@@ -48,7 +48,7 @@ class Baseline():
     
 
 def print_results(solutions):
-    base = Baseline("Rushhour6x6_1.csv")
+    base = Baseline("Rushhour12x12_7.csv")
     print(base.algo())
     if solutions == True:
         return base.print_solutions()

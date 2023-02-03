@@ -1,113 +1,101 @@
 from board import Board
-from cars import Cars
 import random as rd
-from queue_1 import Queue
-from collections import deque
 import copy
+import statistics
+import time
 
-
-def convert(value):
-    if value == -1:
-        return 1
-    if value == 1:
-        return -1
-
-def poss_moves(board):
-    poss_moves = []
-    dir = [-1,1]
-    
-    for car in board.cars:
-        for i in dir:
-            if board.possible_moves(car.car_letter,i) == True:
-                poss_moves.append((car.car_letter,i))
-   
-    return poss_moves
-
-def child_states(board):
-    pss = poss_moves(board)
-    child_state = []
-    poss = rd.sample(pss, k = len(pss))
-    for p in poss:
-        c = board.move(p[0],p[1])
-        c.generate_board()
-        child_state.append(c)
-    
-    print(child_state)
-    return child_state
 
 class Breadth_first():
 
-    def __init__(self,filename,max_depth) -> None:
+    def __init__(self,filename) -> None:
         self.filename = filename 
         self.board = copy.deepcopy(Board(self.filename))
         self.board.load_cars()
-        #self.board.in_position()
-        #self.board.generate_board()
-        self.max_depth = max_depth
+        self.queue = list()
+        self.queue.append(self.board)
+        self.visited = dict()
+        self.path = []
         self.solutions = []
     
     # Function that searches for child states
     def ss(self,board):
-        possible = []
         board.generate_board()
         
         next_moves = board.can_move(board)
-    
+        # For all possible moves create a child board
         for next in next_moves:
-            new_cars = copy.deepcopy(board.cars)
             new = copy.deepcopy(board)
             d = new.move(next[0],next[1])
-            new.generate_board()
-            possible.append(d)
-            
+            d.generate_board()
 
-        return possible
+            # check if board has been visited
+            if d.convert_string() in self.visited.keys():
+                continue
+            else:
+                self.visited[d.convert_string()] = board.convert_string()
+                self.queue.append(d)
+                del(d)
 
-
+        
     def poging_twee(self):
-        queue = list()
-        closed = dict()
         self.board.in_position()
         self.board.generate_board()
-        closed[self.board.convert_string()] = None
-        queue.append(self.board)
-        begin = (0,0)
-        path = []
-        path.append(begin)
-
-
+        self.st_board_string = self.board.convert_string()
+        self.visited[self.st_board_string] = 0
+        self.solution_strings = []
         
-        while len(queue) != 0 :
+        while len(self.queue) != 0 :
             
             # get the first node from the queue
-            current = queue.pop(0)
+            current = self.queue.pop(0)
             current.generate_board() 
-            cur_str = current.convert_string()
+            self.cur_str = current.convert_string()
             
-        
             # Check if solved        
             if current.is_solved() == True:
-                print(len(closed))
-                return current.print_board()
-             
+                self.load_soluto(self.cur_str,current)
+                amnt_sol = len(self.solution_strings)
+                amnt_move = len(self.full_solutions(current))
+                moves_made = self.full_solutions(current)
+                return amnt_move,amnt_sol,moves_made
+            
+            self.ss(current)
 
-            posss = self.ss(current)
-            # Search in child states if visited already
-            for l in posss:
-                self.board.cars = l.cars
-                l.generate_board()
-                new_board = l.convert_string()
+    # Load solutions for board
+    def load_soluto(self,parent,parent_board):
+        
+        while self.st_board_string not in self.solution_strings:
+            self.solution_strings.append(parent)
+            self.path.append(parent_board)
+            self.load_soluto(self.visited[parent],parent_board)
+
+    # 
+    def full_solutions(self,board):
+        moves = []
+        for car in board.cars:
+            moves.append((car.car_letter,car.moved))
+        return moves
             
-                if new_board not in closed:
-                    queue.append(l)
-                    path.append(l)
-                    closed[new_board] = cur_str
             
-            
-            
-                
+
+# Check how long it lasts
+def time_algo():
+    st = time.time()
+    breadth = Breadth_first("Rushhour9x9_4.csv")
+    breadth.poging_twee()
+    et = time.time()
+    elapsed = et-st 
+    return elapsed
+
+# Print average, min and max time
+elp_tim = []
+for i in range(1):
+    print(i)
+    elp_tim.append(time_algo())
+
+print(min(elp_tim))
+print(max(elp_tim))
+print(statistics.mean(elp_tim))
 
 
-breadth = Breadth_first("Rushhour6x6_1.csv",100)
-print(breadth.poging_twee())
 
